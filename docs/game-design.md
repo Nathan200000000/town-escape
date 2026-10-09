@@ -1,99 +1,105 @@
-# Town Escape — Game Design Pitch
+# HUSH — The Town Remembers
 
 ## One-line pitch
 
-A 2–4 player co-op survival game where a crew must cross a hostile town and escape while its AI population investigates, searches, and hunts them.
+A tense co-op stealth-survival game where an entire town hunts the crew by remembering their actions—and the crew can plant false memories to rewrite the pursuit.
+
+## The signature idea: a town with a memory
+
+The town does not have one all-seeing monster. It has a **Civic Memory**: a distributed intelligence made from neighborhood cameras, radios, streetlights, alarms, domestic devices, and the people who pass information along.
+
+It does not know exactly where the crew is. It knows where the crew made noise, what was disturbed, and where it last saw them. Every action becomes evidence, then rumor, then a patrol route.
+
+Players can exploit that delay. A thrown radio, false alarm, or deliberately staged trail can make the town remember the wrong thing. The central question is not “Can we fight all the enemies?” It is “What story does the town believe about us right now?”
 
 ## Player fantasy
 
-“We’re outnumbered, underprepared, and being watched. If we work together and stay clever, we might make it out.”
+“We are ghosts in a town that keeps a record. We can survive by staying quiet, helping each other, and making the town believe a convincing lie.”
 
-The players should feel hunted, resourceful, and responsible for one another. The AI is dangerous because the town reacts as a system, not because every enemy is a perfect fighter.
+Players feel hunted and resourceful. Their strongest tool is coordination, not firepower.
 
-## Setting
+## Visual identity
 
-A fictional small town under emergency lockdown. The crew begins in a safehouse near the edge of town. Their route to freedom crosses residential blocks, a commercial strip, and a final checkpoint or extraction zone.
+- **Camera:** readable isometric view, with carefully framed streets and rooftops.
+- **Palette:** ink navy, oxidized teal, phosphor chartreuse, and warning amber.
+- **Materials:** wet asphalt, aged plaster, dusty windows, radio static, and paper-thin fog.
+- **Memory traces:** luminous, topographic sound rings and ghosted silhouettes that fade as the town forgets.
+- **Threat communication:** windows blink when a signal is relayed; patrols turn their radio antenna toward remembered evidence; the siren changes the whole district’s light and sound.
+- **Mood:** surveillance noir and strange civic ritual, not a generic zombie apocalypse.
 
-Keep the setting grounded and eerie rather than graphic. The threat comes from uncertainty, pursuit, and dwindling time.
+The current browser slice explores this direction with procedural canvas art. It establishes the composition and palette; production 3D models, animation, lighting, and sound design are later work.
 
-## Round structure
+## Core round
 
-1. **Plan:** choose a starting route and a small kit.
-2. **Search:** enter buildings to find supplies and clues.
-3. **Complete an objective:** restore power, find a gate key, or contact an extraction point.
-4. **Evade:** break line of sight, hide, create a distraction, or take a longer route.
-5. **Extract:** reach the exit together, or decide whether to risk going back for a separated teammate.
+1. **Slip out:** begin with a small kit and choose a route across a locked district.
+2. **Recover route cassettes:** each cassette contains a piece of an obsolete evacuation route.
+3. **Manage the town’s memory:** hide evidence, wait for echoes to decay, or plant a false one to draw patrols away.
+4. **Keep the crew together:** share cover and supplies, rescue a caught teammate, and decide when to risk a sprint.
+5. **Reach the extraction beacon:** both players must cross before the district-wide siren locks the route.
 
-A round should be short enough to replay and have more than one viable route.
+A round should be short and replayable, with several routes through a compact map.
 
-## Cooperative roles
+## The memory hunt
 
-Avoid fixed classes at first. Let players specialize through equipment and moment-to-moment choices:
+The Civic Memory should follow legible stages:
 
-- **Scout:** spots patrols and marks safe routes.
-- **Fixer:** opens locked doors and repairs equipment.
-- **Medic:** stabilizes and revives teammates.
-- **Decoy:** draws attention or creates noise away from the crew.
+1. **Routine:** patrols move through their district and report ordinary conditions.
+2. **Echo:** sound, a missing object, or a sighting creates a trace with a location, strength, and age.
+3. **Relay:** nearby devices and people pass the trace to one another after a delay.
+4. **Search:** patrols converge on the strongest recent trace and inspect its neighborhood.
+5. **Reconstruction:** repeated evidence narrows the likely route and closes convenient exits.
+6. **Forgetting:** if no new evidence arrives, the trace decays and patrols gradually disperse.
 
-A player should still be useful when carrying no special item.
+A false echo is not invisibility. It gives the crew time by making the town investigate a believable alternative.
 
-## AI threat model
+## Co-op verbs
 
-The town’s response escalates through readable stages:
+- **Move quietly** and let old traces fade.
+- **Sprint** to save time, at the cost of a louder and longer-lived memory.
+- **Plant a false echo** to draw a patrol toward the wrong street.
+- **Split up briefly** to search two sites, while increasing the risk of being isolated.
+- **Recover a teammate** after a capture, spending a shared recovery signal.
+- **Extract together**; nobody wins by leaving their partner behind.
 
-1. **Routine:** patrols follow routes; locals occupy homes and shops.
-2. **Suspicion:** an unusual sound or missing item sends nearby AI to investigate.
-3. **Search:** a sighting or repeated disturbance triggers a wider sweep.
-4. **Hunt:** confirmed player locations bring pursuers and cut off common routes.
+Future equipment can add meaningful evidence choices: a cassette loop that replays a footstep, a dead relay that prevents a local signal from spreading, and a chalk mark that lets teammates read a route without using the radio.
 
-AI should communicate its state through footsteps, radios, lights, shouts, and changing patrol patterns. Players need a chance to understand why danger is rising.
+## The playable slice
 
-### Initial AI behaviors
+The browser prototype is a compact proof of the central loop:
 
-- Patrol between authored points.
-- Hear loud events within a radius and investigate the source.
-- Spot players based on distance, lighting, and line of sight.
-- Chase a visible player, then search the last known location.
-- Share sightings with nearby allies after a short delay.
-- Return to routine if the crew stays hidden and creates no new evidence.
+- Two-player same-keyboard co-op
+- Isometric night district and minimap
+- Three roaming patrols with routine, memory, and witness states
+- Recent sound traces that pull patrols toward the crew’s previous positions
+- False-echo decoys
+- Three route cassettes, a timed siren, extraction, and shared recovery signals
 
-For the first prototype, these behaviors can be simplified to a single patrol type and one escalation meter.
+Controls: Mara uses WASD, Left Shift, and Q. Sol uses arrow keys, Right Shift, and /.
 
-## Key systems
+This is local co-op only. It is a gameplay and art-direction prototype, not the finished online game.
 
-- **Noise:** movement, broken objects, doors, and tools create different sound levels.
-- **Visibility:** darkness and cover help, but do not make players invisible.
-- **Evidence:** repeated disturbances raise the town’s alert level and alter routes.
-- **Scarcity:** limited healing and utility items make sharing meaningful.
-- **Downed state:** teammates can revive a player, but doing so costs time and creates risk.
-- **Separation:** the group can split up, but distance makes communication and rescue harder.
+## Development path
 
-## First playable milestone
+### Next: make the slice deeper
 
-Build the smallest complete experience:
+- Add distinct patrol roles: listener, blocker, and relay runner.
+- Show relayed evidence traveling between street devices.
+- Add hiding spots, a noise-producing gate, and one route that can be opened in two ways.
+- Improve player animation, building silhouettes, fog lighting, and spatial audio.
+- Tune round difficulty so patrols feel clever but give fair warning.
 
-- 2–4 connected players on one compact neighborhood map
-- One shared objective and one extraction point
-- Basic movement, interaction, and a tiny inventory
-- One patrol AI with investigate, chase, and search states
-- A simple alert meter that rises from noise and sightings
-- Downed/revive interaction
-- Win, loss, and round restart
+### Then: choose the production platform
 
-Do not start with a huge town, many enemy classes, crafting trees, or a progression system. First prove that players enjoy coordinating while being hunted.
+Select an engine and networking model based on the desired platform and visual target. Move the proven memory-hunt loop into a host-authoritative online co-op build before expanding the map.
 
-## Open decisions
+### Later: make each district tell a story
 
-- Engine and target platforms
-- Online networking approach and host model
-- Visual direction and camera style
-- Whether rounds are session-based or part of a longer campaign
-- How much information the AI shares across the town
-- The exact tone and intended age rating
+Use authored neighborhoods, changing local rules, and multiple extraction paths. Let the town’s records reveal what happened during the evacuation without relying on long exposition.
 
-## Early success questions
+## Design checks
 
-- Does the team have meaningful choices when a route becomes unsafe?
-- Can players tell what caused the town to react?
-- Is rescuing a teammate tense without making a downed player wait too long?
-- Do repeated runs produce different stories from the same compact map?
+- Can players explain why a patrol came to a location?
+- Can they create a useful misdirection without making themselves untouchable?
+- Does sprinting feel like a real trade rather than a free speed boost?
+- Can a separated teammate be found and rescued?
+- Does the town’s behavior make players tell different stories after each run?
